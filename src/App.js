@@ -34,10 +34,15 @@ function App() {
     const getWeather = async () => {
       const result = await getLocationWeather(state);
       setApiData(result);
-      console.log(result.data);
+      // console.log(result.data);
     };
 
-    getWeather();
+    // the weather to be updated every 10 seconds
+    var handle = setInterval(getWeather, 10000);
+
+    return () => {
+      clearInterval(handle);
+    };
   }, [state]);
   return (
     <div className="App">
