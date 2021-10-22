@@ -7,7 +7,8 @@ async function getLocationWeather(location) {
   // API KEY AND URL
   const apiKey = process.env.REACT_APP_API_KEY;
   const apiUrl =
-    process.env.REACT_APP_API_URL + `/weather?q=${location}&appid=${apiKey}`;
+    process.env.REACT_APP_API_URL +
+    `/weather?q=${location}&exclude=current&appid=${apiKey}`;
 
   try {
     const result = await fetch(apiUrl);
@@ -33,7 +34,7 @@ function App() {
     const getWeather = async () => {
       const result = await getLocationWeather(state);
       setApiData(result);
-      //console.log(result.data);
+      console.log(result.data);
     };
 
     getWeather();
