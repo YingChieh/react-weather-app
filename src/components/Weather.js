@@ -5,9 +5,21 @@ import moment from "moment";
 const kelvinToFarenheit = (k) => {
   return (k - 273.15).toFixed(0);
 };
+
+const obtainTimeFromCity = (localDt, offset) => {
+  const d = new Date(localDt * 1000);
+  const localTime = d.getTime();
+  const localOffset = d.getTimezoneOffset() * 60000;
+  const utc = localTime + localOffset;
+  var atlanta = utc + 1000 * offset;
+  console.log(new Date(atlanta));
+  return new Date(atlanta);
+};
+
 function Weather({ weatherData }) {
   const iconUrl =
     process.env.REACT_APP_ICON_URL + `${weatherData.weather[0].icon}@2x.png`;
+  const cityTime = obtainTimeFromCity(weatherData.dt, weatherData.timezone);
   return (
     <>
       <article className="container">
@@ -19,8 +31,8 @@ function Weather({ weatherData }) {
         </div>
         <div className="date">
           {/* Current time */}
-          <h5 className="day">{moment().format("D")}</h5>
-          <h4 className="month">{moment().format("MMMM")}</h4>
+          <h5 className="day">{moment(cityTime).format("D")}</h5>
+          <h4 className="month">{moment(cityTime).format("MMMM")}</h4>
         </div>
         <div className="weatherIcon">
           <span className="temperature">
@@ -49,7 +61,10 @@ function Weather({ weatherData }) {
           </div>
         </div> */}
       </article>
-      <footer>last update: {moment().format("h:mm:ss a")}</footer>
+      <footer>
+        last update: {moment().format("h:mm:ss a")} /{" "}
+        {cityTime.toLocaleTimeString("en-IN")}
+      </footer>
     </>
   );
 }
