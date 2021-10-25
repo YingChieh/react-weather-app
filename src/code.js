@@ -1,8 +1,3 @@
-// to convert kelvin to farenheit, since we get the data from api as kelvin
-export const kelvinToFarenheit = (k) => {
-  return (k - 273.15).toFixed(0);
-};
-
 export const obtainTimeFromCity = (localDt, offset) => {
   const d = new Date(localDt * 1000);
   const localTime = d.getTime();

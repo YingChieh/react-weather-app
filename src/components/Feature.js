@@ -1,5 +1,5 @@
 import React from "react";
-import { kelvinToFarenheit, obtainTimeFromCity } from "../code";
+import { obtainTimeFromCity } from "../code";
 
 function Feature({ weatherData }) {
   const displayNextDaysForecast = () => {
@@ -42,7 +42,7 @@ function Feature({ weatherData }) {
               Feels like:{" "}
               <span>
                 {weatherData.main
-                  ? Math.round(kelvinToFarenheit(weatherData.main.feels_like))
+                  ? Math.round(weatherData.main.feels_like)
                   : "N/A"}
               </span>
               &deg;C

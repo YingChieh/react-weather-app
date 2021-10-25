@@ -11,7 +11,7 @@ async function getLocationWeather(location) {
   const apiKey = process.env.REACT_APP_API_KEY;
   const apiUrl =
     process.env.REACT_APP_API_URL +
-    `/weather?q=${location}&exclude=current&appid=${apiKey}`;
+    `/weather?q=${location}&appid=${apiKey}&exclude=current&units=metric`;
 
   try {
     const result = await fetch(apiUrl);
@@ -45,7 +45,7 @@ async function getLocationWeather(location) {
 }
 
 function App() {
-  let initLocation = "taip";
+  let initLocation = "taipei";
   if (localStorage.getItem("location") !== null) {
     initLocation = localStorage.getItem("location");
   }
@@ -77,7 +77,7 @@ function App() {
   };
   useEffect(() => {
     getWeather();
-  }, [state]);
+  }, []);
   useEffect(() => {
     // make the weather to be updated every 10 seconds
     var handle = setInterval(getWeather, 120000);
@@ -86,6 +86,7 @@ function App() {
       clearInterval(handle);
     };
   });
+
   return (
     <>
       <div className="App">

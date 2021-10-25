@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { kelvinToFarenheit, obtainTimeFromCity } from "../code";
+import { obtainTimeFromCity } from "../code";
 
 function Weather({ weatherData }) {
   const iconUrl =
@@ -22,14 +22,16 @@ function Weather({ weatherData }) {
         </div>
         <div className="weatherIcon">
           <span className="temperature">
-            {kelvinToFarenheit(weatherData.main.temp)}&deg;C
+            {weatherData.main ? Math.round(weatherData.main.temp) : "N/A"}
           </span>
           <img
             src={iconUrl}
             alt="weather status icon"
             className="weather-icon"
           />
-          <h2 className="description">{weatherData.weather[0].description}</h2>
+          <h2 className="description">
+            {weatherData.weather ? weatherData.weather[0].description : "N/A"}
+          </h2>
         </div>
       </article>
     </>
