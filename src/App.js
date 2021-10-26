@@ -20,6 +20,11 @@ function App() {
   const [apiUrl, setApiUrl] = useState(
     `${url}/weather?q=${initLocation}&appid=${apiKey}&exclude=current&units=metric`
   );
+  var initHistory = [];
+  if (localStorage.getItem("history") !== null) {
+    initHistory = localStorage.getItem("history").split(",");
+  }
+  const [cityHistory, setCityHistory] = useState(initHistory);
 
   const inputHandler = (event) => {
     setInputState(event.target.value);
@@ -39,6 +44,18 @@ function App() {
         `${url}/weather?lat=${lat}&lon=${long}&appid=${apiKey}&exclude=current&units=metric`
       );
     });
+  };
+
+  const onSetHistory = (city) => {
+    console.log(cityHistory);
+    setCityHistory(cityHistory.slice(-4).concat(city));
+    // Store
+    if (localStorage.getItem("history") === null) {
+      localStorage.setItem("history", cityHistory.slice(-4).concat(city));
+    } else {
+      localStorage.removeItem("history");
+      localStorage.setItem("history", cityHistory.slice(-4).concat(city));
+    }
   };
 
   useEffect(() => {
@@ -114,8 +131,47 @@ function App() {
         </div>
         {apiData.success ? (
           <div className="content">
+            <div className="ListContainer">
+              <i
+                className="fas fa-history"
+                onClick={() => {
+                  var x = document.getElementById("history");
+                  if (x.style.display === "flex") {
+                    x.style.display = "none";
+                  } else {
+                    x.style.display = "flex";
+                  }
+                }}
+              ></i>
+              <div id="history">
+                {cityHistory.length > 0 ? (
+                  cityHistory.map((city, i) => (
+                    <div
+                      key={i}
+                      className="List"
+                      onClick={() =>
+                        setApiUrl(
+                          `${url}/weather?q=${city}&appid=${apiKey}&exclude=current&units=metric`
+                        )
+                      }
+                    >
+                      {city}
+                    </div>
+                  ))
+                ) : (
+                  <div className="noneHistory">No History</div>
+                )}
+              </div>
+            </div>
             <Weather weatherData={apiData.data}></Weather>
             <Feature weatherData={apiData.data}></Feature>
+
+            <button
+              className="addList"
+              onClick={() => onSetHistory(apiData.data.name)}
+            >
+              +
+            </button>
           </div>
         ) : (
           <div className="content alert" id="alert">

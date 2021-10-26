@@ -2,7 +2,7 @@ import React from "react";
 import { obtainTimeFromCity } from "../code";
 
 function Feature({ weatherData }) {
-  const displayNextDaysForecast = () => {
+  const displayMore = () => {
     var x = document.getElementById("more");
     var btn = document.getElementById("btnMore");
     if (x.style.display === "block") {
@@ -24,7 +24,7 @@ function Feature({ weatherData }) {
   return (
     <>
       <div className="extra-info">
-        <button id="btnMore" onClick={displayNextDaysForecast}>
+        <button id="btnMore" onClick={displayMore}>
           I want to know more ▼
         </button>
       </div>
