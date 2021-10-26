@@ -13,10 +13,6 @@
   padding: 0;
 }
 
-form {
-  display: block;
-}
-
 .content {
   top: 60px;
   position: absolute;
