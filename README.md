@@ -1,3 +1,7 @@
+## Live Demo
+
+https://yingchieh.github.io/react-weather-app/
+
 ## OpenWeatherMap API
 
 The application uses the [OpenWeatherMap API](https://openweathermap.org/). In order to use this API you will need to sign up for an account (the service that the application uses is available on the free tier) and set the API key as the `REACT_APP_WEATHER_API_KEY` environment variable.
