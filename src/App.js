@@ -112,7 +112,7 @@ function App() {
       }
     };
     getWeather();
-    // make the weather to be updated every 10 seconds
+    // make the weather to be updated every 2 minutes
     var handle = setInterval(getWeather, 200000);
 
     return () => {
