@@ -34,6 +34,8 @@ function App() {
     setApiUrl(
       `${url}/weather?q=${inputState}&appid=${apiKey}&exclude=current&units=metric`
     );
+
+    setInputState("");
   };
 
   const currentLocation = () => {
@@ -94,20 +96,24 @@ function App() {
     // Retrieving the Data
     const getWeather = async () => {
       const result = await getLocationWeather();
-      setApiData(result);
+      setApiData((data) => result);
       var inputEle = document.getElementsByClassName("searchbar")[0];
-      inputEle.value = result.data.name;
-      // Store
-      if (localStorage.getItem("location") === null) {
-        localStorage.setItem("location", result.data.name);
+      if (result.success) {
+        inputEle.value = result.data.name; //city
+        // Store
+        if (localStorage.getItem("location") === null) {
+          localStorage.setItem("location", result.data.name);
+        } else {
+          localStorage.removeItem("location");
+          localStorage.setItem("location", result.data.name);
+        }
       } else {
-        localStorage.removeItem("location");
-        localStorage.setItem("location", result.data.name);
+        inputEle.value = "";
       }
     };
     getWeather();
     // make the weather to be updated every 10 seconds
-    var handle = setInterval(getWeather, 10000);
+    var handle = setInterval(getWeather, 200000);
 
     return () => {
       clearInterval(handle);
@@ -122,6 +128,7 @@ function App() {
             type="search"
             className="searchbar transparent"
             placeholder="Enter City..."
+            value={inputState}
             onChange={inputHandler}
           />
           <i className="fas fa-map-marker-alt" onClick={currentLocation}></i>
