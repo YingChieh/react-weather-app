@@ -4,6 +4,9 @@ The application uses the [OpenWeatherMap API](https://openweathermap.org/). In o
 
 ## Available Scripts
 
+Install the dependencies in the local node_modules folder:
+### `npm install`
+
 In the project directory, you can run:
 
 ### `npm start`
